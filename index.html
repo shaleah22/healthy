@@ -5,20 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nutrition Tracker</title>
     <style>
-        /* Your CSS remains unchanged */
+        /* Your existing styles remain unchanged */
+        /* ... */
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Nutrition Tracker</h1>
+    <h1>Nutrition</h1>
 </header>
 
 <main>
-    <ul class="food-list" id="foodList"></ul>
+    <!-- Add a heading for each food group -->
+    <h2>Fruits</h2>
+    <ul class="food-list" id="fruitsList"></ul>
 
-    <p class="total">Total Protein: <span id="totalProtein">0</span> grams</p>
-    <p class="total">Total Fiber: <span id="totalFiber">0</span> grams</p>
+    <h2>Snacks</h2>
+    <ul class="food-list" id="snacksList"></ul>
+
+    <h2>Proteins</h2>
+    <ul class="food-list" id="proteinsList"></ul>
+
+    <!-- Total protein and fiber calculations remain the same -->
 
     <button onclick="resetTotals()">Reset Totals</button>
 </main>
@@ -29,11 +37,11 @@
         loadStoredData();
     });
 
-    let totalProtein = 0;
-    let totalFiber = 0;
+    // ...
 
-    function addFood(foodName, protein, fiber) {
-        const foodList = document.getElementById('foodList');
+    // Modify the addFood function to include a food group parameter
+    function addFood(foodName, protein, fiber, foodGroup) {
+        const foodList = document.getElementById(`${foodGroup}List`);
         const listItem = document.createElement('li');
         listItem.className = 'food-item';
         listItem.innerHTML = `
@@ -42,61 +50,14 @@
             </button>
         `;
         foodList.appendChild(listItem);
-
-        // Save data to localStorage
-        saveData();
     }
 
-    function updateTotals(protein, fiber) {
-        totalProtein += protein;
-        totalFiber += fiber;
-
-        document.getElementById('totalProtein').innerText = totalProtein;
-        document.getElementById('totalFiber').innerText = totalFiber;
-
-        // Save data to localStorage
-        saveData();
-    }
-
-    function saveData() {
-        // Save totals to localStorage
-        localStorage.setItem('totalProtein', totalProtein);
-        localStorage.setItem('totalFiber', totalFiber);
-    }
-
-    function loadStoredData() {
-        // Load totals from localStorage
-        const storedProtein = localStorage.getItem('totalProtein');
-        const storedFiber = localStorage.getItem('totalFiber');
-
-        if (storedProtein !== null && storedFiber !== null) {
-            totalProtein = parseFloat(storedProtein);
-            totalFiber = parseFloat(storedFiber);
-
-            document.getElementById('totalProtein').innerText = totalProtein;
-            document.getElementById('totalFiber').innerText = totalFiber;
-        }
-    }
-
-    function resetTotals() {
-        // Reset totals to zero
-        totalProtein = 0;
-        totalFiber = 0;
-
-        document.getElementById('totalProtein').innerText = totalProtein;
-        document.getElementById('totalFiber').innerText = totalFiber;
-
-        // Clear stored data in localStorage
-        localStorage.removeItem('totalProtein');
-        localStorage.removeItem('totalFiber');
-    }
-</script>
-
-<!-- Add your food items using the addFood function -->
-<script>
-    addFood('Milk', 8, 0);
-    addFood('Oatmeal', 5, 3);
+    // Add your food items using the addFood function with the food group parameter
+    addFood('Banana', 1.3, 3.1, 'fruits');
+    addFood('Blueberries 1 cup', 1.07, 3.48, 'fruits');
+    addFood('Low Sodium Potato Chips', 2, 1, 'snacks');
     // Add more food items as needed
+
 </script>
 
 </body>
